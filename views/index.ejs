@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <script
+    src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+  <script>
+    const socket = io("https://cleaner-sweep.tk/connection", {
+      auth: {
+        token:
+          "cf198546f1c8891b5e91c749b87387e5fef897f8bf8b2cfdfe05f429fe68cbac353b7535397049f39a6f372be972a679cf538492aa3321bc3960cdb56ff4fb63",
+      },
+    });
+    socket.on("connection");
+    socket.on("requestLocation", (data) => {
+      socket.emit("getLocation", { riderId: "hello1" }, (callback) => {
+        console.log(callback);
+      });
+    });
+    // client
+    socket.on("error", function (err) {
+      console.log("error");
+      console.log(err);
+    });
+    socket.emit("getLocation", { riderId: "hello1" }, (callback) => {
+      console.log(callback);
+    });
+
+    socket.emit("msg", { msg: "Hello From user 1" });
+    newGroup = () => {};
+  </script>
+</html>
